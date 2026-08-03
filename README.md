@@ -1,45 +1,76 @@
-# Chirpy Starter [![Gem Version](https://img.shields.io/gem/v/jekyll-theme-chirpy)](https://rubygems.org/gems/jekyll-theme-chirpy) [![GitHub license](https://img.shields.io/github/license/cotes2020/chirpy-starter.svg?color=blue)][mit]
+# Threat Hunt
 
-When installing the [**Chirpy**][chirpy] theme through [RubyGems.org][gem], Jekyll can only read files in the folders `/_data`, `/_layouts`, `/_includes`, `/_sass` and `/assets`, as well as a small part of options of the `/_config.yml` file from the theme's gem. If you have ever installed this theme gem, you can use the command `bundle info --path jekyll-theme-chirpy` to locate these files.
+Source for [threathunt.cc](https://threathunt.cc) — William Shields' security write-ups.
+Built with [Astro](https://astro.build), deployed to GitHub Pages via GitHub Actions.
 
-The Jekyll team claims that this is to leave the ball in the user’s court, but this also results in users not being able to enjoy the out-of-the-box experience when using feature-rich themes.
+## Local development
 
-To fully use all the features of **Chirpy**, you need to copy the other critical files from the theme's gem to your Jekyll site. The following is a list of targets:
+Requires Node.js (version pinned in `.nvmrc`). If you use [nvm](https://github.com/nvm-sh/nvm):
 
-```shell
-.
-├── _config.yml
-├── _plugins
-├── _tabs
-└── index.html
+```sh
+nvm use
 ```
 
-To save you time, and also in case you lose some files while copying, we extract those files/configurations of the latest version of the **Chirpy** theme and the [CD][CD] workflow to here, so that you can start writing in minutes.
+Then:
 
-## Prerequisites
-
-Follow the instructions in the [Jekyll Docs](https://jekyllrb.com/docs/installation/) to complete the installation of the basic environment. [Git](https://git-scm.com/) also needs to be installed.
-
-## Installation
-
-Sign in to GitHub and [**use this template**][use-template] to generate a brand new repository and name it `USERNAME.github.io`, where `USERNAME` represents your GitHub username.
-
-Then clone it to your local machine and run:
-
-```
-$ bundle
+```sh
+npm install
+npm run dev
 ```
 
-## Usage
+The site runs at `http://localhost:4321`.
 
-Please see the [theme's docs](https://github.com/cotes2020/jekyll-theme-chirpy#documentation).
+## Adding a post
+
+1. Create a new folder under `src/content/blog/`, named after the post's slug, e.g.
+   `src/content/blog/my-new-box/`.
+2. Add an `index.md` inside it with frontmatter:
+
+   ```md
+   ---
+   title: "HTB | My New Box"
+   date: 2026-01-01T12:00:00-05:00
+   tags: [htb, write-ups, red-team, ctf]
+   description: "Optional one-line summary for SEO/RSS."
+   ---
+
+   Your write-up content here.
+   ```
+
+3. Drop any screenshots in the same folder and reference them with a relative path,
+   e.g. `![gobuster results](gobuster.png)`.
+4. Commit and push to `main`. GitHub Actions builds and deploys the site automatically —
+   nothing else to run.
+
+To hold a post back from publishing, add `draft: true` to its frontmatter.
+
+## Editing the About page
+
+`src/content/pages/about.md` — same idea, just markdown + frontmatter.
+
+## Project structure
+
+```
+src/
+  config.ts          # site title, tagline, author, social links
+  content.config.ts  # frontmatter schema for posts/pages
+  content/
+    blog/<slug>/index.md   # posts (with colocated images)
+    pages/about.md
+  layouts/            # BaseLayout, PostLayout
+  components/          # Header, Footer, ThemeToggle, PostCard, TagPill
+  pages/                # routes: /, /posts/[slug], /tags, /about, /rss.xml
+public/
+  CNAME                 # custom domain (threathunt.cc)
+```
+
+## Deployment
+
+Pushing to `main` triggers `.github/workflows/pages-deploy.yml`, which builds the site
+with `npm run build` and publishes `dist/` to GitHub Pages. No manual steps required.
 
 ## License
 
-This work is published under [MIT][mit] License.
+This work is published under the [MIT][mit] License.
 
-[gem]: https://rubygems.org/gems/jekyll-theme-chirpy
-[chirpy]: https://github.com/cotes2020/jekyll-theme-chirpy/
-[use-template]: https://github.com/cotes2020/chirpy-starter/generate
-[CD]: https://en.wikipedia.org/wiki/Continuous_deployment
-[mit]: https://github.com/cotes2020/chirpy-starter/blob/master/LICENSE
+[mit]: ./LICENSE

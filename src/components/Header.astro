@@ -1,0 +1,24 @@
+---
+import { site } from "../config";
+import ThemeToggle from "./ThemeToggle.astro";
+
+const links = [
+  { href: "/", label: "posts" },
+  { href: "/tags/", label: "tags" },
+  { href: "/about/", label: "about" },
+];
+---
+
+<header class="sticky top-0 z-10 border-b border-border bg-bg/80 backdrop-blur">
+  <div class="max-w-3xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
+    <a href="/" class="font-mono text-lg font-semibold tracking-tight text-fg">
+      <span class="text-accent">$</span> {site.title}
+    </a>
+    <nav class="flex items-center gap-5 font-mono text-sm text-muted">
+      {links.map((link) => (
+        <a href={link.href} class="hover:text-accent transition-colors">{link.label}</a>
+      ))}
+      <ThemeToggle />
+    </nav>
+  </div>
+</header>
