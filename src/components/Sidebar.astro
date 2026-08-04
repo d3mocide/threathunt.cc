@@ -1,6 +1,7 @@
 ---
 import { site } from "../config";
 import ThemeToggle from "./ThemeToggle.astro";
+import BrandMark from "./BrandMark.astro";
 
 const links = [
   { href: "/", label: "posts" },
@@ -20,8 +21,9 @@ function isActive(href: string) {
   id="sidebar-mobile-bar"
   class="lg:hidden sticky top-0 z-20 flex items-center justify-between border-b border-border bg-bg/90 backdrop-blur px-4 py-3"
 >
-  <a href="/" class="font-mono text-base font-semibold text-fg">
-    <span class="text-accent">$</span> {site.title}
+  <a href="/" class="font-mono text-base font-semibold text-fg inline-flex items-center gap-2">
+    <BrandMark pulse class="w-4 h-4 text-accent shrink-0" />
+    {site.title}
   </a>
   <div class="flex items-center gap-2">
     <ThemeToggle />
@@ -70,8 +72,9 @@ function isActive(href: string) {
   class="fixed inset-y-0 left-0 z-30 w-64 -translate-x-full transition-transform duration-200 lg:translate-x-0 lg:sticky lg:top-0 lg:h-screen lg:shrink-0 border-r border-border bg-bg flex flex-col px-5 py-6 gap-8 overflow-y-auto"
 >
   <div>
-    <a href="/" class="font-mono text-lg font-semibold tracking-tight text-fg">
-      <span class="text-accent">$</span> {site.title}
+    <a href="/" class="font-mono text-lg font-semibold tracking-tight text-fg inline-flex items-center gap-2">
+      <BrandMark pulse class="w-5 h-5 text-accent shrink-0" />
+      {site.title}
     </a>
     <p class="mt-2 text-xs text-muted leading-relaxed">{site.tagline}</p>
   </div>
