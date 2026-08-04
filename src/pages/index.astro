@@ -12,7 +12,21 @@ const posts = (await getCollection("blog", ({ data }) => !data.draft)).sort(
 
 <BaseLayout>
   <PageContainer>
-    <p class="font-mono text-sm text-muted mb-8">{site.tagline}</p>
+    <p class="font-mono text-sm text-muted mb-4">{site.tagline}</p>
+    <div class="flex gap-2 mb-8">
+      <a
+        href="/categories/sigint/"
+        class="font-mono text-xs px-3 py-1.5 rounded border border-border text-muted hover:border-accent hover:text-accent transition-colors"
+      >
+        sigint
+      </a>
+      <a
+        href="/categories/builds/"
+        class="font-mono text-xs px-3 py-1.5 rounded border border-border text-muted hover:border-accent hover:text-accent transition-colors"
+      >
+        builds
+      </a>
+    </div>
     <div>
       {
         posts.map((post) => (
@@ -20,6 +34,7 @@ const posts = (await getCollection("blog", ({ data }) => !data.draft)).sort(
             href={`/posts/${post.id}/`}
             title={post.data.title}
             date={post.data.date}
+            category={post.data.category}
             tags={post.data.tags}
             description={post.data.description}
           />

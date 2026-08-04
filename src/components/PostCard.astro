@@ -1,15 +1,17 @@
 ---
 import TagPill from "./TagPill.astro";
+import CategoryBadge from "./CategoryBadge.astro";
 
 interface Props {
   href: string;
   title: string;
   date: Date;
+  category: string;
   tags: string[];
   description?: string;
 }
 
-const { href, title, date, tags, description } = Astro.props;
+const { href, title, date, category, tags, description } = Astro.props;
 const formatted = date.toLocaleDateString("en-US", {
   year: "numeric",
   month: "short",
@@ -18,15 +20,20 @@ const formatted = date.toLocaleDateString("en-US", {
 ---
 
 <article class="group py-6 border-b border-border last:border-0">
-  <a href={href} class="block">
-    <div class="flex items-baseline justify-between gap-4 flex-wrap">
+  <div class="flex items-baseline justify-between gap-4 flex-wrap">
+    <a href={href} class="block flex-1 min-w-0">
       <h2 class="font-mono text-lg font-semibold group-hover:text-accent transition-colors">
         {title}
       </h2>
-      <time datetime={date.toISOString()} class="text-xs text-muted font-mono shrink-0">
+    </a>
+    <div class="flex items-center gap-3 shrink-0">
+      <CategoryBadge category={category} />
+      <time datetime={date.toISOString()} class="text-xs text-muted font-mono">
         {formatted}
       </time>
     </div>
+  </div>
+  <a href={href} class="block">
     {description && <p class="mt-2 text-muted">{description}</p>}
   </a>
   {
