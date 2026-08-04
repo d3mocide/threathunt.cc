@@ -1,0 +1,25 @@
+---
+interface Props {
+  class?: string;
+  pulse?: boolean;
+}
+
+const { class: className = "", pulse = false } = Astro.props;
+---
+
+<svg
+  viewBox="0 0 32 32"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  class={`th-mark ${className}`}
+  aria-hidden="true"
+>
+  <line x1="16" y1="16" x2="16" y2="5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></line>
+  <line x1="16" y1="16" x2="25.5" y2="21.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></line>
+  <line x1="16" y1="16" x2="6.5" y2="21.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></line>
+  <circle cx="16" cy="5" r="2" fill="currentColor"></circle>
+  <circle cx="25.5" cy="21.5" r="2" fill="currentColor"></circle>
+  <circle cx="6.5" cy="21.5" r="2" fill="currentColor"></circle>
+  {pulse && <circle class="th-mark-pulse" cx="16" cy="16" r="2.4" stroke="currentColor" stroke-width="1" fill="none"></circle>}
+  <circle cx="16" cy="16" r="2.4" fill="currentColor"></circle>
+</svg>
