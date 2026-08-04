@@ -1,7 +1,7 @@
 export const site = {
   title: "Threat Hunt",
-  tagline: "The Post Purple Team Exploitations of William Shields.",
-  description: "Post Purple Team Exploitations",
+  tagline: "Signals, wardriving builds, and field SIGINT from William Shields.",
+  description: "RF, SIGINT, and wardriving device builds",
   url: "https://threathunt.cc",
   author: {
     name: "William Shields",

@@ -1,7 +1,8 @@
 # Threat Hunt
 
-Source for [threathunt.cc](https://threathunt.cc) — William Shields' security write-ups.
-Built with [Astro](https://astro.build), deployed to GitHub Pages via GitHub Actions.
+Source for [threathunt.cc](https://threathunt.cc) — William Shields' RF/SIGINT and
+wardriving build write-ups. Built with [Astro](https://astro.build), deployed to
+GitHub Pages via GitHub Actions.
 
 ## Local development
 
@@ -28,14 +29,19 @@ The site runs at `http://localhost:4321`.
 
    ```md
    ---
-   title: "HTB | My New Box"
+   title: "Decoding TPMS with an RTL-SDR"
    date: 2026-01-01T12:00:00-05:00
-   tags: [htb, write-ups, red-team, ctf]
+   category: sigint
+   tags: [rtl-sdr, tpms, wardriving]
    description: "Optional one-line summary for SEO/RSS."
    ---
 
    Your write-up content here.
    ```
+
+   `category` is required and must be either `sigint` (captures, decodes, coverage
+   tests, field notes) or `builds` (hardware/device build logs). `tags` stay freeform —
+   use them for hardware, protocol, and technique.
 
 3. Drop any screenshots in the same folder and reference them with a relative path,
    e.g. `![gobuster results](gobuster.png)`.
@@ -48,18 +54,26 @@ To hold a post back from publishing, add `draft: true` to its frontmatter.
 
 `src/content/pages/about.md` — same idea, just markdown + frontmatter.
 
+## Editing the Projects page
+
+`src/data/projects.ts` — a plain array of `{ name, tagline, description, repoUrl, tech }`
+entries rendered at `/projects/`. Add, edit, or reorder entries there; no frontmatter
+involved since these aren't blog posts.
+
 ## Project structure
 
 ```
 src/
   config.ts          # site title, tagline, author, social links
-  content.config.ts  # frontmatter schema for posts/pages
+  content.config.ts  # frontmatter schema for posts/pages (category + tags)
   content/
     blog/<slug>/index.md   # posts (with colocated images)
     pages/about.md
+  data/
+    projects.ts       # GitHub project cards shown at /projects/
   layouts/            # BaseLayout, PostLayout
-  components/          # Header, Footer, ThemeToggle, PostCard, TagPill
-  pages/                # routes: /, /posts/[slug], /tags, /about, /rss.xml
+  components/          # Header, Footer, ThemeToggle, PostCard, ProjectCard, TagPill, CategoryBadge
+  pages/                # routes: /, /posts/[slug], /projects, /categories/[category], /tags, /about, /rss.xml
 public/
   CNAME                 # custom domain (threathunt.cc)
 ```
