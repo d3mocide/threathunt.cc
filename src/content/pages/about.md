@@ -2,10 +2,10 @@
 title: About
 ---
 
-Hey, I'm **William Shields** (aka `d3mocide`).
+Hey, I'm **Will** (aka `d3mocide`).
 
-I'm a security practitioner who spends most of his free time on wireless: field SIGINT,
-wardriving, and building the hardware that makes both easier. Expect posts on protocol
+I'm a IT Systems Administrator who spends most of my free time on working on wireless and RF systems,  
+wardriving, and building smart IoT devices for RF exploration. Expect posts on protocol
 decodes, signal captures, coverage runs, and device builds in the spirit of projects like
 [AntiHunter](https://github.com/lukeswitz/AntiHunter) and
 [Piglet](https://github.com/Hamspiced/piglet) — ESP32-class sensors, enclosures, and
