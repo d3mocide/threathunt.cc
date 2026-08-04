@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageContainer from "../../components/PageContainer.astro";
 import PostCard from "../../components/PostCard.astro";
 
 export async function getStaticPaths() {
@@ -23,18 +24,20 @@ const { posts } = Astro.props;
 ---
 
 <BaseLayout title={`#${tag}`}>
-  <h1 class="font-mono text-2xl font-bold mb-6">#{tag}</h1>
-  <div>
-    {
-      posts.map((post) => (
-        <PostCard
-          href={`/posts/${post.id}/`}
-          title={post.data.title}
-          date={post.data.date}
-          tags={post.data.tags}
-          description={post.data.description}
-        />
-      ))
-    }
-  </div>
+  <PageContainer>
+    <h1 class="font-mono text-2xl font-bold mb-6">#{tag}</h1>
+    <div>
+      {
+        posts.map((post) => (
+          <PostCard
+            href={`/posts/${post.id}/`}
+            title={post.data.title}
+            date={post.data.date}
+            tags={post.data.tags}
+            description={post.data.description}
+          />
+        ))
+      }
+    </div>
+  </PageContainer>
 </BaseLayout>

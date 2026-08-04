@@ -1,5 +1,5 @@
 ---
-import Header from "../components/Header.astro";
+import Sidebar from "../components/Sidebar.astro";
 import Footer from "../components/Footer.astro";
 import "../styles/global.css";
 import { site } from "../config";
@@ -48,11 +48,13 @@ const canonicalURL = new URL(Astro.url.pathname, site.url);
       })();
     </script>
   </head>
-  <body class="font-sans bg-bg text-fg min-h-screen flex flex-col">
-    <Header />
-    <main class="flex-1 w-full max-w-3xl mx-auto px-4 py-10">
-      <slot />
-    </main>
-    <Footer />
+  <body class="font-sans bg-bg text-fg min-h-screen lg:flex">
+    <Sidebar />
+    <div class="flex-1 min-w-0 flex flex-col">
+      <main class="flex-1">
+        <slot />
+      </main>
+      <Footer />
+    </div>
   </body>
 </html>
