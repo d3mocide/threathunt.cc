@@ -1,0 +1,56 @@
+---
+import type { Flasher } from "../data/flashers";
+
+interface Props {
+  flasher: Flasher;
+}
+
+const { flasher } = Astro.props;
+---
+
+<article class="py-6 border-b border-border last:border-0">
+  <div class="flex items-baseline justify-between gap-4 flex-wrap">
+    <a
+      href={flasher.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="font-mono text-lg font-semibold hover:text-accent transition-colors inline-flex items-center gap-1.5"
+    >
+      {flasher.name}
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="w-4 h-4 text-muted inline-block"
+      >
+        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+        <polyline points="15 3 21 3 21 9"></polyline>
+        <line x1="10" y1="14" x2="21" y2="3"></line>
+      </svg>
+    </a>
+    <span class="text-xs text-muted font-mono shrink-0">{flasher.tagline}</span>
+  </div>
+  <p class="mt-2 text-muted leading-relaxed">{flasher.description}</p>
+  <div class="mt-4 flex items-center justify-between gap-4 flex-wrap">
+    <div class="flex flex-wrap gap-2">
+      {
+        flasher.hardware.map((hw) => (
+          <span class="font-mono text-xs px-2 py-0.5 rounded border border-border text-muted">
+            {hw}
+          </span>
+        ))
+      }
+    </div>
+    <a
+      href={flasher.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="font-mono text-xs px-3 py-1 rounded border border-accent text-accent hover:bg-accent hover:text-bg transition-colors"
+    >
+      Launch Flasher &rarr;
+    </a>
+  </div>
+</article>

@@ -6,6 +6,7 @@ import BrandMark from "./BrandMark.astro";
 const links = [
   { href: "/", label: "posts" },
   { href: "/projects/", label: "projects" },
+  { href: "/flashers/", label: "web tools" },
   { href: "/tags/", label: "tags" },
   { href: "/about/", label: "about" },
 ];
@@ -21,7 +22,10 @@ function isActive(href: string) {
   id="sidebar-mobile-bar"
   class="lg:hidden sticky top-0 z-20 flex items-center justify-between border-b border-border bg-bg/90 backdrop-blur px-4 py-3"
 >
-  <a href="/" class="font-mono text-base font-semibold text-fg inline-flex items-center gap-2">
+  <a
+    href="/"
+    class="font-mono text-base font-semibold text-fg inline-flex items-center gap-2"
+  >
     <BrandMark pulse class="w-4 h-4 text-accent shrink-0" />
     {site.title}
   </a>
@@ -72,7 +76,10 @@ function isActive(href: string) {
   class="fixed inset-y-0 left-0 z-30 w-64 -translate-x-full transition-transform duration-200 lg:translate-x-0 lg:sticky lg:top-0 lg:h-screen lg:shrink-0 border-r border-border bg-bg flex flex-col px-5 py-6 gap-8 overflow-y-auto"
 >
   <div>
-    <a href="/" class="font-mono text-lg font-semibold tracking-tight text-fg inline-flex items-center gap-2">
+    <a
+      href="/"
+      class="font-mono text-lg font-semibold tracking-tight text-fg inline-flex items-center gap-2"
+    >
       <BrandMark pulse class="w-5 h-5 text-accent shrink-0" />
       {site.title}
     </a>
@@ -85,7 +92,9 @@ function isActive(href: string) {
         <a
           href={link.href}
           class={`rounded-md px-2 py-1.5 transition-colors ${
-            isActive(link.href) ? "text-accent bg-surface" : "text-muted hover:text-fg"
+            isActive(link.href)
+              ? "text-accent bg-surface"
+              : "text-muted hover:text-fg"
           }`}
         >
           {link.label}
@@ -112,7 +121,12 @@ function isActive(href: string) {
       >
         twitter
       </a>
-      <a href={`mailto:${site.author.email}`} class="hover:text-accent transition-colors"> email </a>
+      <a
+        href={`mailto:${site.author.email}`}
+        class="hover:text-accent transition-colors"
+      >
+        email
+      </a>
       <a href="/rss.xml" class="hover:text-accent transition-colors">rss</a>
     </div>
     <div class="hidden lg:block">
