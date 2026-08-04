@@ -1,0 +1,24 @@
+{
+  "name": "threathunt",
+  "version": "1.0.0",
+  "description": "Threat Hunt — William Shields' security write-ups, built with Astro.",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@astrojs/rss": "^4.0.19",
+    "@astrojs/sitemap": "^3.7.3",
+    "@tailwindcss/typography": "^0.5.20",
+    "@tailwindcss/vite": "^4.3.3",
+    "astro": "^7.1.6",
+    "sharp": "^0.35.3",
+    "tailwindcss": "^4.3.3"
+  }
+}

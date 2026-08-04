@@ -1,0 +1,93 @@
+---
+import type { CollectionEntry } from "astro:content";
+import BaseLayout from "./BaseLayout.astro";
+import TagPill from "../components/TagPill.astro";
+
+interface Props {
+  entry: CollectionEntry<"blog">;
+  headings: { depth: number; slug: string; text: string }[];
+}
+
+const { entry, headings } = Astro.props;
+const { title, date, tags, description } = entry.data;
+const formatted = date.toLocaleDateString("en-US", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
+const toc = headings.filter((h) => h.depth <= 3);
+---
+
+<BaseLayout title={title} description={description}>
+  <div class="mx-auto w-full max-w-6xl px-4 py-10 lg:px-8 lg:py-12">
+    <div class="flex justify-between gap-10 xl:gap-16">
+      <article class="w-full max-w-2xl min-w-0">
+        <header class="mb-8 border-b border-border pb-6">
+          <h1 class="font-mono text-2xl sm:text-3xl font-bold text-fg">{title}</h1>
+          <div class="mt-3 flex flex-wrap items-center gap-3 text-sm text-muted font-mono">
+            <time datetime={date.toISOString()}>{formatted}</time>
+            {
+              tags.length > 0 && (
+                <div class="flex flex-wrap gap-2">
+                  {tags.map((tag) => (
+                    <TagPill tag={tag} />
+                  ))}
+                </div>
+              )
+            }
+          </div>
+        </header>
+
+        {
+          toc.length > 1 && (
+            <details class="mb-8 rounded-lg border border-border bg-surface xl:hidden">
+              <summary class="cursor-pointer select-none font-mono text-xs uppercase tracking-wide text-muted px-4 py-3">
+                Contents
+              </summary>
+              <ul class="px-4 pb-4 space-y-1 text-sm">
+                {toc.map((h) => (
+                  <li style={{ marginLeft: `${(h.depth - toc[0].depth) * 0.75}rem` }}>
+                    <a href={`#${h.slug}`} class="text-muted hover:text-accent transition-colors">
+                      {h.text}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </details>
+          )
+        }
+
+        <div class="prose">
+          <slot />
+        </div>
+
+        <div class="mt-10 pt-6 border-t border-border">
+          <a href="/" class="font-mono text-sm text-muted hover:text-accent transition-colors">
+            &larr; back to all posts
+          </a>
+        </div>
+      </article>
+
+      {
+        toc.length > 1 && (
+          <aside class="hidden xl:block w-56 shrink-0">
+            <div class="sticky top-10">
+              <p class="font-mono text-xs uppercase tracking-wide text-muted mb-3">Contents</p>
+              <nav class="flex flex-col gap-2 text-sm border-l border-border">
+                {toc.map((h) => (
+                  <a
+                    href={`#${h.slug}`}
+                    class="border-l-2 border-transparent text-muted hover:text-accent hover:border-accent transition-colors -ml-px"
+                    style={{ paddingLeft: `${0.75 + (h.depth - toc[0].depth) * 0.75}rem` }}
+                  >
+                    {h.text}
+                  </a>
+                ))}
+              </nav>
+            </div>
+          </aside>
+        )
+      }
+    </div>
+  </div>
+</BaseLayout>

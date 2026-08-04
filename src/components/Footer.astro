@@ -1,0 +1,11 @@
+---
+import { site } from "../config";
+
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-border">
+  <div class="max-w-2xl mx-auto px-4 lg:px-8 py-6 text-xs text-muted font-mono">
+    <p>&copy; {year} {site.author.name}</p>
+  </div>
+</footer>

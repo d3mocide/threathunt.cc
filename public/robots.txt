@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://threathunt.cc/sitemap-index.xml

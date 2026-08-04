@@ -1,0 +1,153 @@
+---
+import { site } from "../config";
+import ThemeToggle from "./ThemeToggle.astro";
+
+const links = [
+  { href: "/", label: "posts" },
+  { href: "/tags/", label: "tags" },
+  { href: "/about/", label: "about" },
+];
+
+const path = Astro.url.pathname;
+function isActive(href: string) {
+  if (href === "/") return path === "/" || path.startsWith("/posts/");
+  return path.startsWith(href);
+}
+---
+
+<div
+  id="sidebar-mobile-bar"
+  class="lg:hidden sticky top-0 z-20 flex items-center justify-between border-b border-border bg-bg/90 backdrop-blur px-4 py-3"
+>
+  <a href="/" class="font-mono text-base font-semibold text-fg">
+    <span class="text-accent">$</span> {site.title}
+  </a>
+  <div class="flex items-center gap-2">
+    <ThemeToggle />
+    <button
+      id="sidebar-toggle"
+      type="button"
+      aria-label="Open menu"
+      aria-expanded="false"
+      aria-controls="sidebar"
+      class="inline-flex items-center justify-center rounded-md border border-border p-1.5 hover:border-accent hover:text-accent transition-colors cursor-pointer"
+    >
+      <svg
+        id="icon-menu"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        class="w-4 h-4"
+      >
+        <path d="M3 6h18M3 12h18M3 18h18"></path>
+      </svg>
+      <svg
+        id="icon-close"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        class="w-4 h-4 hidden"
+      >
+        <path d="M18 6 6 18M6 6l12 12"></path>
+      </svg>
+    </button>
+  </div>
+</div>
+
+<div
+  id="sidebar-backdrop"
+  class="lg:hidden fixed inset-0 z-20 bg-black/50 opacity-0 pointer-events-none transition-opacity duration-200"
+>
+</div>
+
+<aside
+  id="sidebar"
+  class="fixed inset-y-0 left-0 z-30 w-64 -translate-x-full transition-transform duration-200 lg:translate-x-0 lg:sticky lg:top-0 lg:h-screen lg:shrink-0 border-r border-border bg-bg flex flex-col px-5 py-6 gap-8 overflow-y-auto"
+>
+  <div>
+    <a href="/" class="font-mono text-lg font-semibold tracking-tight text-fg">
+      <span class="text-accent">$</span> {site.title}
+    </a>
+    <p class="mt-2 text-xs text-muted leading-relaxed">{site.tagline}</p>
+  </div>
+
+  <nav class="flex flex-col gap-1 font-mono text-sm">
+    {
+      links.map((link) => (
+        <a
+          href={link.href}
+          class={`rounded-md px-2 py-1.5 transition-colors ${
+            isActive(link.href) ? "text-accent bg-surface" : "text-muted hover:text-fg"
+          }`}
+        >
+          {link.label}
+        </a>
+      ))
+    }
+  </nav>
+
+  <div class="mt-auto flex flex-col gap-4">
+    <div class="flex items-center gap-4 font-mono text-xs text-muted">
+      <a
+        href={site.social.github}
+        target="_blank"
+        rel="noopener noreferrer me"
+        class="hover:text-accent transition-colors"
+      >
+        github
+      </a>
+      <a
+        href={site.social.twitter}
+        target="_blank"
+        rel="noopener noreferrer me"
+        class="hover:text-accent transition-colors"
+      >
+        twitter
+      </a>
+      <a href={`mailto:${site.author.email}`} class="hover:text-accent transition-colors"> email </a>
+      <a href="/rss.xml" class="hover:text-accent transition-colors">rss</a>
+    </div>
+    <div class="hidden lg:block">
+      <ThemeToggle />
+    </div>
+  </div>
+</aside>
+
+<script is:inline>
+  (function () {
+    var sidebar = document.getElementById("sidebar");
+    var backdrop = document.getElementById("sidebar-backdrop");
+    var toggle = document.getElementById("sidebar-toggle");
+    var iconMenu = document.getElementById("icon-menu");
+    var iconClose = document.getElementById("icon-close");
+
+    function setOpen(open) {
+      sidebar.classList.toggle("-translate-x-full", !open);
+      backdrop.classList.toggle("opacity-0", !open);
+      backdrop.classList.toggle("pointer-events-none", !open);
+      toggle.setAttribute("aria-expanded", String(open));
+      iconMenu.classList.toggle("hidden", open);
+      iconClose.classList.toggle("hidden", !open);
+      document.documentElement.classList.toggle("overflow-hidden", open);
+    }
+
+    toggle.addEventListener("click", function () {
+      setOpen(sidebar.classList.contains("-translate-x-full"));
+    });
+    backdrop.addEventListener("click", function () {
+      setOpen(false);
+    });
+    sidebar.querySelectorAll("a").forEach(function (a) {
+      a.addEventListener("click", function () {
+        setOpen(false);
+      });
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") setOpen(false);
+    });
+  })();
+</script>
