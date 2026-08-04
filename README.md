@@ -1,7 +1,7 @@
 # Threat Hunt
 
-Source for [threathunt.cc](https://threathunt.cc) — William Shields' RF/SIGINT and
-wardriving build write-ups. Built with [Astro](https://astro.build), deployed to
+Source for [threathunt.cc](https://threathunt.cc) — RF/SIGINT and
+microcontroller build write-ups. Built with [Astro](https://astro.build), deployed to
 GitHub Pages via GitHub Actions.
 
 ## Local development
